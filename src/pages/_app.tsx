@@ -4,6 +4,7 @@ import { SessionProvider } from 'next-auth/react';
 import { ApolloProvider } from '@apollo/client';
 // import { QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider } from '@mui/material';
+import CssBaseline from '@mui/material/CssBaseline';
 // import { reactQueryClient } from '#/utils/reactQueryClient';
 import { apolloClient } from '#/graphql/apolloClient';
 import theme from '#/theme';
@@ -20,6 +21,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
       <ApolloProvider client={apolloClient}>
         {/*  <QueryClientProvider client={reactQueryClient}>*/}
         <ThemeProvider theme={theme}>
+          <CssBaseline />
           <Component {...pageProps} />
         </ThemeProvider>
         {/*</QueryClientProvider>*/}
