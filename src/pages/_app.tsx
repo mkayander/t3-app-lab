@@ -1,10 +1,15 @@
-import { type AppType } from "next/app";
-import { type Session } from "next-auth";
-import { SessionProvider } from "next-auth/react";
+import { type AppType } from 'next/app';
+import { type Session } from 'next-auth';
+import { SessionProvider } from 'next-auth/react';
+import { ApolloProvider } from '@apollo/client';
+// import { QueryClientProvider } from '@tanstack/react-query';
+import { ThemeProvider } from '@mui/material';
+// import { reactQueryClient } from '#/utils/reactQueryClient';
+import { apolloClient } from '#/graphql/apolloClient';
+import theme from '#/theme';
+import { trpc } from '#/utils';
 
-import { trpc } from "../utils/trpc";
-
-import "../styles/globals.css";
+import '../styles/globals.css';
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -12,7 +17,13 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      <Component {...pageProps} />
+      <ApolloProvider client={apolloClient}>
+        {/*  <QueryClientProvider client={reactQueryClient}>*/}
+        <ThemeProvider theme={theme}>
+          <Component {...pageProps} />
+        </ThemeProvider>
+        {/*</QueryClientProvider>*/}
+      </ApolloProvider>
     </SessionProvider>
   );
 };
