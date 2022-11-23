@@ -1,2 +1,1 @@
-// export { useProfileImageUploader } from './useProfileImageUploader';
-export {}
+export { useProfileImageUploader } from './useProfileImageUploader';

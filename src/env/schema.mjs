@@ -1,5 +1,5 @@
 // @ts-check
-import { z } from "zod";
+import { z } from 'zod';
 
 /**
  * Specify your server-side environment variables schema here.
@@ -7,9 +7,9 @@ import { z } from "zod";
  */
 export const serverSchema = z.object({
   DATABASE_URL: z.string().url(),
-  NODE_ENV: z.enum(["development", "test", "production"]),
+  NODE_ENV: z.enum(['development', 'test', 'production']),
   NEXTAUTH_SECRET:
-    process.env.NODE_ENV === "production"
+    process.env.NODE_ENV === 'production'
       ? z.string().min(1)
       : z.string().min(1).optional(),
   NEXTAUTH_URL: z.preprocess(
@@ -17,12 +17,16 @@ export const serverSchema = z.object({
     // Since NextAuth automatically uses the VERCEL_URL if present.
     (str) => process.env.VERCEL_URL ?? str,
     // VERCEL_URL doesn't include `https` so it cant be validated as a URL
-    process.env.VERCEL ? z.string() : z.string().url(),
+    process.env.VERCEL ? z.string() : z.string().url()
   ),
   // DISCORD_CLIENT_ID: z.string(),
   // DISCORD_CLIENT_SECRET: z.string(),
   GITHUB_CLIENT_ID: z.string(),
   GITHUB_CLIENT_SECRET: z.string(),
+
+  ACCESS_KEY: z.string(),
+  SECRET_KEY: z.string(),
+  BUCKET_NAME: z.string()
 });
 
 /**
@@ -32,6 +36,7 @@ export const serverSchema = z.object({
  */
 export const clientSchema = z.object({
   // NEXT_PUBLIC_BAR: z.string(),
+  NEXT_PUBLIC_BUCKET_BASE_URL: z.string().url()
 });
 
 /**
@@ -42,4 +47,5 @@ export const clientSchema = z.object({
  */
 export const clientEnv = {
   // NEXT_PUBLIC_BAR: process.env.NEXT_PUBLIC_BAR,
+  NEXT_PUBLIC_BUCKET_BASE_URL: process.env.NEXT_PUBLIC_BUCKET_BASE_URL
 };

@@ -17,11 +17,11 @@ import {
 } from '@mui/material';
 import CodeIcon from '@mui/icons-material/Code';
 import MenuIcon from '@mui/icons-material/Menu';
-// import { useProfileImageUploader } from '#/hooks';
-// import { getImageUrl } from '#/utils';
-// import Image from 'next/image';
+import { useProfileImageUploader } from '#/hooks';
+import { getImageUrl } from '#/utils';
+import Image from 'next/image';
 
-// const AVATAR_PLACEHOLDER = '/avatars/placeholder.png';
+const AVATAR_PLACEHOLDER = '/avatars/placeholder.png';
 
 type NavItem = {
     name: string;
@@ -53,7 +53,7 @@ export const MainAppBar: React.FC = () => {
 
     const session = useSession();
 
-    // useProfileImageUploader(session);
+    useProfileImageUploader(session);
 
     const handleSignIn = async () => {
         await signIn();
@@ -178,12 +178,12 @@ export const MainAppBar: React.FC = () => {
                             <Tooltip title="Open settings">
                                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                                     <Avatar>
-                                        {/*<Image*/}
-                                        {/*    src={getImageUrl(session.data.user.bucketImage || AVATAR_PLACEHOLDER)}*/}
-                                        {/*    alt={`${session.data.user.name} avatar`}*/}
-                                        {/*    referrerPolicy="no-referrer"*/}
-                                        {/*    fill={true}*/}
-                                        {/*/>*/}
+                                        <Image
+                                            src={getImageUrl(session.data.user.bucketImage || AVATAR_PLACEHOLDER)}
+                                            alt={`${session.data.user.name} avatar`}
+                                            referrerPolicy="no-referrer"
+                                            fill={true}
+                                        />
                                     </Avatar>
                                 </IconButton>
                             </Tooltip>
